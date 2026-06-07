@@ -4,7 +4,7 @@
   "description": "A self-hosted Grok registration Web console with Docker, DrissionPage automation, mail backend integration, and local account pool management.",
   "keywords": [
     "grok",
-    "grok-register",
+    "grok-registration",
     "xai",
     "xai-automation",
     "drissionpage",
@@ -14,7 +14,7 @@
     "account-pool",
     "registration-tool"
   ],
-  "private": true,
+  "private": false,
   "author": "FengZi1221",
   "license": "MIT",
   "type": "module",
