@@ -1,39 +1,39 @@
 ---
-name: Bug report
-about: Report a reproducible problem in grok-reg-tool
-title: "[Bug] "
-labels: bug
+name: 问题反馈
+about: 反馈 grok-reg-tool 中可以复现的问题
+title: "[问题] "
+labels: ""
 assignees: ""
 ---
 
-## Description
+## 问题描述
 
-Describe the problem clearly.
+请清晰描述你遇到的问题。
 
-## Steps to Reproduce
+## 复现步骤
 
 1.
 2.
 3.
 
-## Expected Behavior
+## 期望行为
 
-What did you expect to happen?
+你原本期望发生什么？
 
-## Actual Behavior
+## 实际行为
 
-What happened instead?
+实际发生了什么？
 
-## Environment
+## 运行环境
 
-- OS:
-- Docker version:
-- Browser:
-- grok-reg-tool version or commit:
+- 操作系统：
+- Docker 版本：
+- 浏览器：
+- grok-reg-tool 版本或提交：
 
-## Logs
+## 日志
 
-Please paste relevant logs. Do not include secrets, SSO tokens, passwords, or private mail credentials.
+请粘贴相关日志。不要包含密钥、SSO token、密码或私有邮件凭据。
 
 ```text
 

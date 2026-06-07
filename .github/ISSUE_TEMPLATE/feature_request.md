@@ -1,23 +1,23 @@
 ---
-name: Feature request
-about: Suggest an improvement for grok-reg-tool
-title: "[Feature] "
-labels: enhancement
+name: 功能建议
+about: 为 grok-reg-tool 提出改进建议
+title: "[建议] "
+labels: ""
 assignees: ""
 ---
 
-## Use Case
+## 使用场景
 
-Describe the problem or workflow this feature would improve.
+请描述这个功能要解决的问题，或者它可以改善的工作流程。
 
-## Proposed Solution
+## 期望方案
 
-Describe what you want to happen.
+请描述你希望它如何工作。
 
-## Alternatives
+## 备选方案
 
-Describe any alternatives you have considered.
+如果你考虑过其他方案，也可以写在这里。
 
-## Additional Context
+## 补充信息
 
-Add screenshots, logs, or examples if useful. Do not include secrets, SSO tokens, passwords, or private mail credentials.
+可以补充截图、日志或示例。不要包含密钥、SSO token、密码或私有邮件凭据。

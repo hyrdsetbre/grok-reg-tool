@@ -1,61 +1,62 @@
 # grok-reg-tool
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/Docker-Compose-blue.svg)](docker/docker-compose.yml)
-[![Node.js](https://img.shields.io/badge/Node.js-20+-339933.svg)](package.json)
-[![Python](https://img.shields.io/badge/Python-3.13+-3776AB.svg)](register/requirements.txt)
+[![开源协议：MIT](https://img.shields.io/badge/%E5%8D%8F%E8%AE%AE-MIT-green.svg)](LICENSE)
+[![部署方式：Docker Compose](https://img.shields.io/badge/%E9%83%A8%E7%BD%B2-Docker%20Compose-blue.svg)](docker/docker-compose.yml)
+[![Node.js 20+](https://img.shields.io/badge/Node.js-20+-339933.svg)](package.json)
+[![Python 3.13+](https://img.shields.io/badge/Python-3.13+-3776AB.svg)](register/requirements.txt)
 
-`grok-reg-tool` is a self-hosted Grok registration Web console with Docker Compose deployment, a React dashboard, a Node.js API server, and an included DrissionPage Python automation runtime.
+`grok-reg-tool` 是一个可自部署的 Grok 注册机 Web 控制台，包含 React 仪表盘、Node.js API 服务、WebSocket 实时日志、内置 Python 自动化注册运行时，以及本地账号号池管理能力。
 
-`grok-reg-tool` 是一个可自部署的 Grok 注册机 Web 控制台。当前发布版已经把 Python 注册机源码放在项目内的 `register/` 目录中，Docker 镜像构建时会自动安装 Python、Chromium、Xvfb 以及注册脚本依赖。部署者只需要拉取仓库、填写 `docker/.env`，然后执行 `docker compose up -d --build`。
+当前发布版已经把 Python 注册机源码放在项目内的 `register/` 目录中。Docker 镜像构建时会自动安装 Python、Chromium、Xvfb 和注册脚本依赖；部署者只需要拉取仓库、填写 `docker/.env`，然后执行 `docker compose up -d --build`。
 
-> This project is not affiliated with xAI, Grok, or X. Use it only for lawful automation research, personal learning, and environments where you have permission. Do not use it for spam, abuse, credential stuffing, platform disruption, or any activity that violates applicable laws or service terms.
+> 本项目与 xAI、Grok、X 没有任何从属、授权或官方关联。请仅在合法、合规、获得许可的研究、学习或自托管实验环境中使用。请勿用于垃圾注册、滥用、撞库、绕过访问控制、干扰第三方服务，或任何违反法律法规和平台条款的行为。
 
-## What It Does
+## 功能特性
 
-- Provides a Web UI for starting, stopping, and monitoring registration runs.
-- Runs the included Python automation entrypoint `register/runner.py`.
-- Installs Python dependencies from `register/requirements.txt` during Docker build.
-- Integrates with a self-hosted mail backend for verification-code polling.
-- Stores account records, settings, logs, and SSO output in a persistent Docker data directory.
-- Supports HTTP proxy, browser proxy, Chromium path, run count, and mail backend settings.
-- Includes GitHub-ready open-source metadata, issue templates, Docker configuration, and MIT license.
+- 提供 Web 控制台，用于启动、停止和监控注册任务。
+- 内置 Python 自动化入口 `register/runner.py`。
+- Docker 构建阶段自动安装 `register/requirements.txt` 中的 Python 依赖。
+- 支持配置自托管邮件后端，用于轮询验证码邮件。
+- 支持本地账号记录、运行设置、日志和 SSO 输出持久化。
+- 支持 HTTP 代理、浏览器代理、Chromium 路径、注册轮数和邮件后端参数。
+- 默认使用 Docker Compose 部署，运行数据统一落在 `docker/data/`。
+- 仓库已包含开源协议、GitHub Issue 模板、PR 模板和 Docker 配置。
 
-## SEO Keywords
+## 搜索关键词
 
-Grok registration tool, Grok register WebUI, xAI automation dashboard, DrissionPage Docker automation, self-hosted registration console, Grok account pool manager, SSO token management, Docker Grok tool, Grok 注册机, Grok 自动注册, xAI 自动化, DrissionPage 自动化, Docker 自部署 Web 控制台。
+Grok 注册机、Grok 自动注册、Grok Web 控制台、Grok 账号号池、Grok SSO 管理、xAI 自动化、DrissionPage 自动化、Docker 自部署注册工具、Docker Compose WebUI、Python 自动化注册脚本、自托管自动化控制台。
 
-## Requirements
+## 环境要求
 
-For Docker deployment:
+Docker 部署需要：
 
 - Docker
 - Docker Compose v2
-- A reachable mail backend compatible with the project configuration
+- 一个可访问的邮件后端服务
 
-For local development:
+本地开发需要：
 
 - Node.js 20+
 - npm
 - Python 3.13+
-- Chromium or a compatible browser
+- Chromium 或兼容浏览器
 
-## Docker Compose Deployment
+## Docker Compose 部署
 
-Clone the repository:
+克隆仓库：
 
 ```bash
 git clone https://github.com/FengZi1221/grok-reg-tool.git
 cd grok-reg-tool/docker
 ```
 
-Create an environment file:
+创建环境变量文件：
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `docker/.env`:
+编辑 `docker/.env`：
 
 ```env
 WEB_PORT=6657
@@ -69,43 +70,43 @@ HTTP_PROXY=
 BROWSER_PROXY=
 ```
 
-Build and start:
+构建并启动：
 
 ```bash
 docker compose up -d --build
 ```
 
-Open the Web UI:
+打开 Web 控制台：
 
 ```text
-http://your-server-ip:6657
+http://你的服务器IP:6657
 ```
 
-View the initial Web login information:
+查看初始 Web 登录信息：
 
 ```bash
 docker logs grok-reg-tool
 ```
 
-After first login, change the default Web username and password in the UI.
+首次登录后，请在 Web 控制台中修改默认用户名和密码。
 
-## Build Details
+## 镜像构建说明
 
-The Docker image is built from `docker/Dockerfile`.
+Docker 镜像由 [docker/Dockerfile](docker/Dockerfile) 构建。
 
-During build, the image:
+构建过程中会执行：
 
-- Builds the React renderer with Vite.
-- Builds the TypeScript server.
-- Prunes Node.js development dependencies.
-- Uses `python:3.13-slim-bookworm` as the final runtime base.
-- Installs Chromium, Xvfb, fonts, certificates, and `dumb-init`.
-- Copies `register/` into `/app/register`.
-- Installs Python dependencies with `python -m pip install -r /app/register/requirements.txt`.
+- 使用 Vite 构建 React 前端。
+- 编译 TypeScript 服务端。
+- 裁剪 Node.js 开发依赖。
+- 使用 `python:3.13-slim-bookworm` 作为最终运行时基础镜像。
+- 安装 Chromium、Xvfb、字体、证书和 `dumb-init`。
+- 将项目内 `register/` 复制到容器内 `/app/register`。
+- 执行 `python -m pip install -r /app/register/requirements.txt` 安装 Python 依赖。
 
-Container defaults:
+容器默认参数：
 
-| Variable | Default |
+| 变量 | 默认值 |
 | --- | --- |
 | `PORT` | `6657` |
 | `BIND_HOST` | `0.0.0.0` |
@@ -116,73 +117,73 @@ Container defaults:
 | `SSO_DIR` | `/data/sso` |
 | `BROWSER_PATH` | `/usr/bin/chromium` |
 
-## Runtime Data
+## 运行数据
 
-Docker Compose mounts one persistent directory:
+Docker Compose 默认只挂载一个持久化目录：
 
 ```yaml
 volumes:
   - ./data:/data
 ```
 
-Important runtime paths:
+常用路径：
 
-| Purpose | Container Path | Host Path |
+| 用途 | 容器路径 | 宿主机路径 |
 | --- | --- | --- |
-| App config and account data | `/data` | `docker/data` |
-| SSO output | `/data/sso` | `docker/data/sso` |
-| Included register scripts | `/app/register` | baked into image |
-| Python entrypoint | `/app/register/runner.py` | baked into image |
+| 应用配置和账号数据 | `/data` | `docker/data` |
+| SSO 输出 | `/data/sso` | `docker/data/sso` |
+| 内置注册脚本 | `/app/register` | 已打包进镜像 |
+| Python 注册入口 | `/app/register/runner.py` | 已打包进镜像 |
 
-Do not commit runtime data, SSO tokens, mail credentials, proxy secrets, or generated account files.
+请不要提交运行数据、SSO token、邮件凭据、代理密钥或生成的账号文件。
 
-## Configuration
+## 配置说明
 
-Docker users can set defaults in `docker/.env`. Most values can also be changed from the Web UI after login.
+Docker 用户可以在 `docker/.env` 中设置默认值。登录 Web 控制台后，大部分配置也可以在界面中修改。
 
-| Variable | Description | Default |
+| 变量 | 说明 | 默认值 |
 | --- | --- | --- |
-| `WEB_PORT` | Host port exposed by Docker Compose | `6657` |
-| `RUN_COUNT` | Number of registration rounds per run | `10` |
-| `MAIL_API_BASE` | Mail backend API base URL | empty |
-| `MAIL_ADMIN_AUTH` | Mail backend admin auth token/password | empty |
-| `MAIL_DOMAIN` | Mail domain used for generated addresses | empty |
-| `HTTP_PROXY` | Proxy for backend HTTP requests | empty |
-| `BROWSER_PROXY` | Proxy for browser automation | empty |
+| `WEB_PORT` | Docker Compose 暴露到宿主机的 Web 端口 | `6657` |
+| `RUN_COUNT` | 单次运行的注册轮数 | `10` |
+| `MAIL_API_BASE` | 邮件后端 API 根地址 | 空 |
+| `MAIL_ADMIN_AUTH` | 邮件后端管理认证密钥或密码 | 空 |
+| `MAIL_DOMAIN` | 生成邮箱地址使用的域名 | 空 |
+| `HTTP_PROXY` | 后端 HTTP 请求使用的代理 | 空 |
+| `BROWSER_PROXY` | 浏览器自动化使用的代理 | 空 |
 
-## Local Development
+## 本地开发
 
-Install dependencies:
+安装 Node.js 依赖：
 
 ```bash
 npm install
 ```
 
-Build the Web UI and server:
+构建前端和服务端：
 
 ```bash
 npm run server:build
 ```
 
-Run the server in development mode:
+以开发模式运行服务端：
 
 ```bash
 npm run server:dev
 ```
 
-Install Python dependencies for local automation testing:
+安装 Python 注册脚本依赖：
 
 ```bash
 python -m pip install -r register/requirements.txt
 ```
 
-Run the Python entrypoint directly:
+直接运行 Python 注册入口：
 
 ```bash
 python register/runner.py --count 1
 ```
 
-## Project Structure
+## 项目结构
 
 ```text
 grok-reg-tool/
@@ -206,28 +207,28 @@ grok-reg-tool/
 └── README.md
 ```
 
-## Troubleshooting
+## 常见问题
 
-### Docker build is slow
+### Docker 首次构建较慢
 
-The image installs Chromium and Python dependencies, so the first build may take a while. Later builds are faster when Docker layer cache is available.
+镜像会安装 Chromium 和 Python 依赖，首次构建耗时会比较长。后续构建如果命中 Docker 层缓存，会快很多。
 
-### Web UI starts but registration cannot run
+### Web 控制台可以打开，但注册任务无法正常运行
 
-Check:
+请检查：
 
-- `MAIL_API_BASE`, `MAIL_ADMIN_AUTH`, and `MAIL_DOMAIN`
-- proxy settings
-- container logs with `docker logs grok-reg-tool`
-- the system health panel in the Web UI
+- `MAIL_API_BASE`、`MAIL_ADMIN_AUTH` 和 `MAIL_DOMAIN`
+- 代理配置是否正确
+- `docker logs grok-reg-tool` 中的容器日志
+- Web 控制台中的系统健康检查结果
 
-### Browser automation fails in a custom environment
+### 浏览器自动化在自定义环境中失败
 
-The official Dockerfile sets `BROWSER_PATH=/usr/bin/chromium` and starts Xvfb automatically. If you change the image or runtime environment, verify that Chromium exists and the process has permission to launch it.
+官方 Dockerfile 默认设置 `BROWSER_PATH=/usr/bin/chromium`，并在容器启动时自动启动 Xvfb。如果你修改了镜像或运行环境，请确认 Chromium 存在，并且当前进程有权限启动浏览器。
 
-## Security and Privacy
+## 安全和隐私
 
-The repository ignores local secrets and generated data, including:
+仓库已默认忽略本地密钥和生成数据，包括：
 
 - `.env`
 - `docker/.env`
@@ -239,28 +240,28 @@ The repository ignores local secrets and generated data, including:
 - `node_modules/`
 - `server/dist/`
 
-If you expose the Web UI on a public network, use a strong password, restrict access where possible, and rotate any leaked mail backend or proxy credentials immediately.
+如果你把 Web 控制台暴露到公网，请设置强密码，尽量限制访问来源，并在任何凭据泄露后立即轮换邮件后端密钥和代理凭据。
 
-## Responsible Use
+## 负责任使用
 
-This project is published for technical research, self-hosted automation experiments, and learning how to combine Docker, React, Node.js, Python, and DrissionPage into a Web-controlled automation workflow.
+本项目用于技术研究、自托管自动化实验，以及学习如何把 Docker、React、Node.js、Python 和 DrissionPage 组合成可由 Web 控制的自动化工作流。
 
-You are responsible for how you run it. Review the terms of service of every platform involved and comply with local laws. The maintainer does not endorse abuse, spam, bypassing access controls, platform disruption, or unauthorized large-scale account creation.
+你需要自行对使用方式负责。使用前请阅读相关平台的服务条款并遵守所在地法律法规。维护者不支持滥用、垃圾注册、绕过访问控制、干扰平台服务，或未经授权的大规模账号创建。
 
-## Release
+## 发行版
 
-Current release: `v0.1.0`
+当前发行版：`v0.1.0`
 
-GitHub repository: <https://github.com/FengZi1221/grok-reg-tool>
+GitHub 仓库：<https://github.com/FengZi1221/grok-reg-tool>
 
-## Contributing
+## 贡献
 
-Issues and pull requests are welcome.
+欢迎提交 Issue 和 Pull Request。
 
-- Bug reports should include Docker logs, environment details, and reproduction steps.
-- Feature requests should describe the use case and expected behavior.
-- Do not submit secrets, live SSO tokens, passwords, mail credentials, or personal account data.
+- 问题反馈请包含 Docker 日志、运行环境和复现步骤。
+- 功能建议请说明使用场景和期望行为。
+- 请不要提交密钥、真实 SSO token、密码、邮件凭据或个人账号数据。
 
-## License
+## 开源协议
 
-This project is released under the [MIT License](LICENSE).
+本项目基于 [MIT 开源协议](LICENSE) 开源。

@@ -1,18 +1,18 @@
 {
   "name": "grok-reg-tool",
   "version": "0.1.0",
-  "description": "A self-hosted Grok registration Web console with Docker, DrissionPage automation, mail backend integration, and local account pool management.",
+  "description": "可自部署的 Grok 注册机 Web 控制台，支持 Docker、DrissionPage 自动化、邮件后端配置和本地账号号池管理。",
   "keywords": [
     "grok",
-    "grok-registration",
+    "grok注册机",
     "xai",
-    "xai-automation",
+    "xai自动化",
     "drissionpage",
     "docker",
-    "self-hosted",
+    "自部署",
     "webui",
-    "account-pool",
-    "registration-tool"
+    "账号号池",
+    "注册工具"
   ],
   "private": false,
   "author": "FengZi1221",

@@ -1,17 +1,17 @@
-## Summary
+## 摘要
 
-- 
+-
 
-## Changes
+## 变更内容
 
-- 
+-
 
-## Testing
+## 测试情况
 
-- [ ] `npm run server:build`
-- [ ] Docker build or deployment checked
-- [ ] No secrets, SSO tokens, passwords, or private mail credentials included
+- [ ] 已运行 `npm run server:build`
+- [ ] 已检查 Docker 构建或部署流程
+- [ ] 未包含密钥、SSO token、密码或私有邮件凭据
 
-## Notes
+## 备注
 
-Add any extra context for reviewers.
+可以在这里补充给维护者的上下文。
