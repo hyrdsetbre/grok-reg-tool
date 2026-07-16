@@ -7,6 +7,7 @@
     "mail_domain": "example.com",
     "proxy": "",
     "browser_proxy": "",
+    "yescaptcha_key": "",
     "api": {
         "endpoint": "",
         "token": "",
