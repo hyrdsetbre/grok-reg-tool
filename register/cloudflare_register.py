@@ -3,10 +3,17 @@
 Cloudflare 账号自动注册脚本
 基于 grok-reg-tool 架构，兼容现有邮件后端
 
+Turnstile 验证方案（双层）：
+1. 第一层：浏览器扩展反检测（turnstilePatch）
+   - 修复 MouseEvent.screenX/screenY 属性，模拟真实鼠标坐标
+   - 大部分场景可自动通过 Turnstile 无感验证
+2. 第二层：YesCaptcha 打码服务（可选）
+   - 配置 yescaptcha_key 后启用
+   - 用于应对高风控场景的强制验证
+
 注意事项：
-1. Cloudflare 注册使用 Turnstile 人机验证，需要配置第三方打码服务
-2. Global API Key 无法自动获取，需登录后手动创建
-3. 新账号可能触发手机号验证，成功率不保证
+1. Global API Key 无法自动获取，需登录后手动创建
+2. 新账号可能触发手机号验证，成功率不保证
 """
 
 import sys
@@ -48,6 +55,9 @@ if _config_path.exists():
 
 PROXY = str(_conf.get("browser_proxy", "") or _conf.get("proxy", ""))
 YESCAPTCHA_KEY = str(_conf.get("yescaptcha_key", ""))
+
+# Turnstile 反检测扩展（修复 MouseEvent.screenX/screenY）
+TURNSTILE_EXTENSION_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "turnstilePatch"))
 
 # ============================================================
 # 日志设置
@@ -96,8 +106,8 @@ def extract_verify_link(content: str) -> Optional[str]:
 
     # Cloudflare 验证邮件中的链接模式
     patterns = [
-        r'https://dash\.cloudflare\.com/confirm-email\?[^\s<>"']+',
-        r'https://www\.cloudflare\.com/[^\s<>"']*verify[^\s<>"']*',
+        r"https://dash\.cloudflare\.com/confirm-email\?[^\s<>\"']+",
+        r"https://www\.cloudflare\.com/[^\s<>\"']*verify[^\s<>\"']*",
         r'href="(https://dash\.cloudflare\.com/[^"]+)"',
     ]
 
@@ -133,6 +143,11 @@ def init_browser(user_data_dir: Optional[str] = None) -> Chromium:
     co.set_argument("--disable-gpu")
     co.set_argument("--disable-dev-shm-usage")
     co.set_argument("--headless=new")
+
+    # 加载 Turnstile 反检测扩展（修复 MouseEvent.screenX/screenY）
+    if os.path.isdir(TURNSTILE_EXTENSION_PATH):
+        co.add_extension(TURNSTILE_EXTENSION_PATH)
+        run_logger.info("已加载 Turnstile 反检测扩展")
 
     if user_data_dir:
         co.set_user_data_path(user_data_dir)
